@@ -6,7 +6,7 @@ The following code is used to preprocess the NRD, and to run the experiments.
 ## Overview of files in this repository
 Quick overview of the python files.
 * [config.py](../blob/main/config.py) Settings (such as filepaths, and hyperparameters)
-* [data_pipeline.py](../blob/main/data_pipeline.py) Data preprocessing (and `run_data_pipeline.sh` to run it)
+* [data_pipeline.py](../blob/main/data_pipeline.py) Data preprocessing (and [run_data_pipeline.sh](../blob/main/run_data_pipeline.sh) to run it)
 * [descriptives.py](../blob/main/descriptives.py) Descriptives of the data
 * [main.py](../blob/main/main.py) Train and optimize models
 * [metrics_callback.py](../blob/main/metrics_callback.py) Keras callback to calculate metrics on large dataset
@@ -31,10 +31,10 @@ Additionally, CUDA 9.2 was installed.
 ## Data
 To run the preprocessing of the Nationwide Readmissions Database, run the script [data_pipeline.py](../blob/main/data_pipeline.py). 
 
-Please make sure before doing so all of the files listed underneath are downloaded. 
-* The files under **Cohort inclusion/exclusion tables of [1]** and **Conversion of ICD-10 codes to CCS codes** will be available on this github page in  `data/ccs/`. However, if you wish to download a newer version, please follow the instructions underneath. 
-* The files under **Conversion of ICD-10 to ICD-9 codes** and **Medical embeddings of [2]** have to be cloned from the respective github pages, but this is automated in the script [run_data_pipeline.sh](../blob/main/run_data_pipeline.sh). 
-* The Nationwide readmissions database has to be downloaded yourself. It is easiest if you put this in `data/NRD/`.
+Please make sure before doing so all of the files listed here are downloaded:
+* The Nationwide readmissions database is not open source and has to be downloaded yourself. It is easiest if you put this in `data/NRD/`.
+* The files under **Cohort inclusion/exclusion tables of [1]** and **Conversion of ICD-10 codes to CCS codes** are available on this github page in  `data/ccs/`. However, if you wish to download a newer version, please follow the instructions underneath. 
+* The files under **Conversion of ICD-10 to ICD-9 codes** and **Medical embeddings of [2]** have to be cloned from the respective github pages, but this is automated in the script [run_data_pipeline.sh](../blob/main/run_data_pipeline.sh). Also, see instructions underneath.
 
 The preprocessing of the NRD can be done using [data_pipeline.py](../blob/main/data_pipeline.py). Note that the NRD is quite big, so might likely not fit into your RAM. After preprocessing, the following files should be saved:
 * `labels.csv` (for each patient whether a patient was readmitted or not)
@@ -47,7 +47,7 @@ The preprocessing of the NRD can be done using [data_pipeline.py](../blob/main/d
 To create descriptives of the dataset, run [descriptives.py](../blob/main/descriptives.py).  
 
 ### Nationwide Readmissions Database (NRD)
-The data used for this project is the Nationwide Readmissions Database. 
+The data used for this project is the Nationwide Readmissions Database. This dataset is not open source, and has to be bought.
 
 More information about this database can be found at https://www.hcup-us.ahrq.gov/db/nation/nrd/nrddbdocumentation.jsp
 
@@ -55,12 +55,9 @@ Information about variables: https://www.hcup-us.ahrq.gov/db/nation/nrd/stats/Fi
 
 Put the downloaded file in `data/NRD/`.
 
-### Conversion of ICD-10 to ICD-9 codes
-Download the file ICD_9_10_d_v1.1.csv from https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion
-
-Put the downloaded file in `data/icd_conversion/`
-
 ### Conversion of ICD-10 codes to CCS codes
+*[These files are already provided in this github repository.]*
+
 Download 
 * Diagnosis (ICD10-CM): https://www.hcup-us.ahrq.gov/toolssoftware/ccsr/ccs_refined.jsp
 * Procedure (ICD10-PCS): https://www.hcup-us.ahrq.gov/toolssoftware/ccs10/ccs10.jsp
@@ -70,6 +67,8 @@ This will give you two files: `ccs_dx_icd10cm_2018_1.csv` and `ccs_pr_icd10pcs_2
 Note that [1] uses 2018 CCS codes.
 
 ### Cohort inclusion/exclusion tables of [1]
+*[These files are already provided in this github repository.]*
+
 Download zip file from https://www.qualitynet.org/files/5eaadcffe8ffc8001f999225?filename=2019_Readmission_Meas_Updates_Specs.zip *(qualitynet.org -> Hospitals - Inpatient -> Measures -> Readmission Measures -> Resources -> Archived Measure Methodology -> 2019 Readmission Measures Updates and Specifications Reports (05/01/20))*. From the zip-file extract the file [2019HWRSuppFile.xlsx](../blob/main/data/ccs/2019HWRSuppFile.xlsx), in which you will find cohort inclusion and exclusion tables as described in [1]. From this xls file, I manually copied the tables into csv files. For this I retrieved the following cohort inclusion/exclusion tables with CCS 2018 codes:
 * [pr1_plan_ccs_pcs.csv](../blob/main/data/ccs/pr1_plan_ccs_pcs.csv) (CCS planned procedures 2018)
 * [pr2_plan_ccs_cm.csv](../blob/main/data/ccs/pr2_plan_ccs_cm.csv) (CCS planned diagnoses (maintenance chemotherapy or rehabilitation care) 2018)
@@ -88,8 +87,25 @@ As well as the CCS 2018 codes for speciality cohorts:
 
 All these files can be found in the `data/ccs/` folder.
 
+### Conversion of ICD-10 to ICD-9 codes
+Download the file ICD_9_10_d_v1.1.csv from https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion
+
+```
+wget https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion/blob/master/ICD_9_10_d_v1.1.csv
+```
+
+Put the downloaded file in `data/icd_conversion/`
+
 ### Medical embeddings of [2]
-The medical embeddings of [2] for ICD-9 codes can be downloaded from https://github.com/clinicalml/embeddings. Download file `claims_codes_hs_300.txt.gz`, extract the file and put it in `data/embeddings/`. By running [data_pipeline.py](../blob/main/data_pipeline.py) a file `icd2emb.csv` will be created, which is necessary when running the models later. 
+The medical embeddings of [2] for ICD-9 codes can be downloaded from https://github.com/clinicalml/embeddings. Download file `claims_codes_hs_300.txt.gz`, extract the file and put it in `data/embeddings/`. 
+
+```
+wget https://github.com/clinicalml/embeddings/raw/master/claims_codes_hs_300.txt.gz
+gzip -d claims_codes_hs_300.txt.gz
+mv claims_codes_hs_300.txt IDX_IPR_C_N_L_month_ALL_MEMBERS_fold1_s300_w20_ss5_hs_thr12.txt
+```
+
+By running [data_pipeline.py](../blob/main/data_pipeline.py) a file `icd2emb.csv` will be created, which is necessary when running the models later. 
 
 ## Model
 Load the data and train the model using [main.py](../blob/main/main.py). This code calls all other python files ([config.py](../blob/main/config.py), [metrics_callback.py](../blob/main/metrics_callback.py), [clr_callback.py](../blob/main/clr_callback.py), [models.py](../blob/main/models.py), [plot.py](../blob/main/plot.py)). 
