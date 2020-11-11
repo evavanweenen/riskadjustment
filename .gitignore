@@ -1,1 +1,13 @@
 */__pycache__/
+
+/data/NRD/
+/data/embeddings/
+/data/icd_conversion/
+
+/data/ccs.csv
+/data/diag.csv
+/data/diag_raw.csv
+/data/hosp.npz
+/data/labels.csv
+/data/nrd_2.csv
+/data/patient.csv
