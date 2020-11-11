@@ -188,7 +188,7 @@ def preprocess_embeddings():
                                 index = ['UNK'],
                                 columns = df.columns))
 
-    df.to_csv('icd2emb.csv', header=None)
+    df.to_csv(datadir+'embeddings/icd2emb.csv', header=None)
 
 
 def icd2embedding_idx(data):

@@ -91,7 +91,7 @@ All these files can be found in the `data/ccs/` folder.
 Download the file ICD_9_10_d_v1.1.csv from https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion
 
 ```
-wget https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion/blob/master/ICD_9_10_d_v1.1.csv
+wget https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion/raw/master/ICD_9_10_d_v1.1.csv
 ```
 
 Put the downloaded file in `data/icd_conversion/`

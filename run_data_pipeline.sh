@@ -3,7 +3,7 @@ mkdir data/icd_conversion
 mkdir data/embeddings
 
 cd data/icd_conversion
-wget https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion/blob/master/ICD_9_10_d_v1.1.csv
+wget https://github.com/AtlasCUMC/ICD10-ICD9-codes-conversion/raw/master/ICD_9_10_d_v1.1.csv
 cd ../embeddings
 wget https://github.com/clinicalml/embeddings/raw/master/claims_codes_hs_300.txt.gz
 gzip -d claims_codes_hs_300.txt.gz
