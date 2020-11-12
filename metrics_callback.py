@@ -5,7 +5,7 @@ from keras.callbacks import Callback
 
 from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score, log_loss, roc_curve, precision_recall_curve, auc
 
-def calc_metrics(x, y, x_val, y_val, model, metrics):
+def calc_metrics(x, y, x_val, y_val, model, metrics, epoch):
     def threshold(Y, Y_pred):
         # determine classification threshold
         fpr, tpr, thres = roc_curve(Y, Y_pred)
@@ -72,7 +72,7 @@ class Metrics(Callback):
         return
 
     def on_epoch_end(self, epoch, logs={}):
-        self.metrics = calc_metrics(self.x, self.y, self.x_val, self.y_val, self.model, self.metrics)
+        self.metrics = calc_metrics(self.x, self.y, self.x_val, self.y_val, self.model, self.metrics, epoch)
         return
 
     def on_batch_begin(self, batch, logs={}):

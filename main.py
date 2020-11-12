@@ -19,8 +19,8 @@ import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 from keras import backend as K
 config = tf.ConfigProto(allow_soft_placement=True)
-config.gpu_options.pser_process_gpu_memory_fraction = 0.5
-config.gpu_options.allow_growth = True
+#config.gpu_options.pser_process_gpu_memory_fraction = 0.5
+#config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 K.set_session(sess)
 
@@ -121,6 +121,13 @@ def train(model, model_type, savedir):
     # load weights of best model 
     model.load_weights(filepath) 
     model.metrics = metrics
+
+    # save training and validation metrics
+    results = pd.DataFrame.from_dict(model.history.history).join(pd.DataFrame.from_dict(model.metrics.metrics))
+    results.to_csv(savedir+'training_metrics_mean.csv')
+        
+    # plot training and validation metrics
+    PlotResults(savedir).plot_training_metrics(model)
     
     return model
 
@@ -270,7 +277,7 @@ del hosp, diag
 gc.collect()
 
 if train_models['hglm'] or train_models['lasso'] or read_ccs:
-    ccs = pd.read_csv(loaddir+'ccs.csv', index_col = 0, header = None, dtype = 'Int64').values 
+    ccs = pd.read_csv(datadir+'ccs.csv', index_col = 0, header = None, dtype = 'Int64').values 
     ccs_train = ccs[idx_train]
     ccs_val = ccs[idx_val]
     ccs_test = ccs[idx_test]
@@ -311,19 +318,15 @@ t_begin_model = time.time()
 for name in M.keys():
     print(name)
     savedir = root + name + '/'
-    if train_models[name]:
-        M[name].model = train(M[name].model, name, savedir)
-
-        # save training and validation metrics
-        results = pd.DataFrame.from_dict(M[name].model.history.history).join(pd.DataFrame.from_dict(M[name].model.metrics.metrics))
-        results.to_csv(savedir+'training_metrics_mean.csv')
-            
-        # plot training and validation metrics
-        PlotResults(savedir).plot_training_metrics(M[name].model)
-    elif optimize_models[name]:
+    # optimize
+    if optimize_models[name]:
         if not os.path.exists(savedir+'gridsearch/'):
             os.mkdir(savedir+'gridsearch/')
         gridsearch(savedir+'gridsearch/', param_grid, name=name)
+    # train
+    if train_models[name]:
+        M[name].model = train(M[name].model, name, savedir)
+    # only test
     else:
         M[name].model.load_weights(savedir+'weights-'+name+'.hdf5')
     

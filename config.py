@@ -18,11 +18,11 @@ test_size = .25 #this is the percentage of the validation set assigned to the te
 model_names = ('Hospital-mean', 'HGLM', 'Elastic net', 'Fully non-linear', 'Proposed model')
 
 # which models to train
-train_models    = { 'hospital_only' : False,
-                    'hglm'          : False,
-                    'lasso'         : False,
-                    'black_box'     : False,
-                    'nn'            : False}
+train_models    = { 'hospital_only' : True,
+                    'hglm'          : True,
+                    'lasso'         : True,
+                    'black_box'     : True,
+                    'nn'            : True}
 # which models to optimize
 optimize_models = { 'hospital_only' : False,
                     'hglm'          : False,

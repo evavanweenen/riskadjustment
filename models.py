@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 import keras
-from keras.layers import Input, Dense, Embedding, Concatenate, Dropout, dot
+from keras.layers import Input, Dense, Embedding, Concatenate, Dropout, dot, Lambda
 from keras.models import Model
 from keras.initializers import Constant
 from keras import backend as K

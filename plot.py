@@ -14,7 +14,7 @@ class PlotData:
         sns.set_context("paper")
         sns.set(font_scale=1.3)
         sns.set_style("white")
-        plt.rcParams.update({"text.usetex": True, "text.latex.preamble":[r"\usepackage{amsmath}",r"\usepackage{siunitx}",],})
+        #plt.rcParams.update({"text.usetex": True, "text.latex.preamble":[r"\usepackage{amsmath}",r"\usepackage{siunitx}",],})
         
     def plot_cdf(self, x, xname, plotname):
         q25 = np.quantile(x, 0.25)
@@ -50,7 +50,7 @@ class PlotResults:
         sns.set_context("paper")
         sns.set(font_scale=1.3)
         sns.set_style("white")
-        plt.rcParams.update({"text.usetex": True, "text.latex.preamble":[r"\usepackage{amsmath}",r"\usepackage{siunitx}",],})
+        #plt.rcParams.update({"text.usetex": True, "text.latex.preamble":[r"\usepackage{amsmath}",r"\usepackage{siunitx}",],})
 
     
     def plot_training_metrics(self, model):

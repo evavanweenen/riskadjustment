@@ -28,6 +28,8 @@ The code for this project was executed in Python 3.6.9 and the following python 
 
 Additionally, CUDA 9.2 was installed.
 
+For the figures, latex needs to be installed. Else, comment this out in [plot.py](../blob/main/plot.py).
+
 ## Data
 To run the preprocessing of the Nationwide Readmissions Database, run the script [data_pipeline.py](../blob/main/data_pipeline.py). 
 
@@ -111,6 +113,10 @@ By running [data_pipeline.py](../blob/main/data_pipeline.py) a file `icd2emb.csv
 Load the data and train the model using [main.py](../blob/main/main.py). This code calls all other python files ([config.py](../blob/main/config.py), [metrics_callback.py](../blob/main/metrics_callback.py), [clr_callback.py](../blob/main/clr_callback.py), [models.py](../blob/main/models.py), [plot.py](../blob/main/plot.py)). 
 
 Make sure you've downloaded the Cyclical Learning Rate (CLR) callback [clr_callback.py](https://github.com/bckenstler/CLR/blob/master/clr_callback.py) from https://github.com/bckenstler/CLR. 
+
+```
+wget https://github.com/bckenstler/CLR/raw/master/clr_callback.py
+```
 
 Additionally, you can change hyperparameter settings and filepaths in [config.py](../blob/main/config.py).
 
