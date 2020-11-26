@@ -1,7 +1,7 @@
 # Estimating Risk-Adjusted Hospital Performance
 This is the python code supplementary to the article **'Estimating Risk-Adjusted Hospital Performance'** by Eva van Weenen and Stefan Feuerriegel, accepted at the *2020 IEEE International Conference on Big Data*. It proposes a new method for measuring hospital performance, while adjusting for patient risk. The paper can be found on [ArXiv](https://arxiv.org/abs/2011.05149). 
 
-The following code is used to preprocess the NRD, and to run the experiments.
+The following code is used to preprocess the data (Nationwide Readmissions Database, not publicly available), and to run the experiments as described in the article.
 
 ## Overview of files in this repository
 Quick overview of the python files.
